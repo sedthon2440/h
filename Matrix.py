@@ -40,37 +40,37 @@ from telethon.tl.functions.messages import (
     SendReactionRequest
 )
 
-from telethon import TelegramClient, events, Button
+from telegram import ReplyKeyboardMarkup, KeyboardButton
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+YOUR_BOT_TOKEN = '7279617579:AAH05WmgKb6WhGJL9x2tGRy9RvqSA6eKpZ8' 
+# تعريف الأمر /start
+def start(update, context):
+    # قائمة الأزرار في اللوحة المفاتيح
+    button = KeyboardButton(text="Press me!")
+    keyboard = [[button]]
+    # تفعيل اللوحة المفاتيح وإرسالها كرسالة
+    update.message.reply_text('Please press the button:', reply_markup=ReplyKeyboardMarkup(keyboard))
 
-# تعريف المتغيرات
-api_id = '17211426'
-api_hash = '656a097533402eb717ba82298a752177'
-bot_token = '7228727354:AAHz0jKXeppjXTP_P2UBUh-2VNY-bOchXxs'
+# تعريف الدالة التي تتعامل مع الرسائل النصية
+def handle_message(update, context):
+    # استلام النص المدخل من المستخدم
+    text = update.message.text
+    # إرسال رسالة بالنص المدخل
+    update.message.reply_text(f'You entered: {text}')
 
-# إنشاء العميل
-client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
+# تهيئة البوت وإضافة المعالجات (handlers)
+updater = Updater('YOUR_BOT_TOKEN', use_context=True)
+dispatcher = updater.dispatcher
 
-# دالة للرد على الرسائل مع الأزرار
-@client.on(events.NewMessage(pattern='/start'))
-async def start(event):
-    buttons = [
-        [Button.inline('Button 1', b'btn1')],
-        [Button.inline('Button 2', b'btn2')]
-    ]
-    await event.respond('Choose an option:', buttons=buttons)
+# إضافة المعالج (handler) للأمر /start
+start_handler = CommandHandler('start', start)
+dispatcher.add_handler(start_handler)
 
-# دالة للتعامل مع الضغط على الأزرار
-@client.on(events.CallbackQuery(data=b'المطور'))
-async def button1(event):
-    await event.edit('≭︰Dev Name ↬ ⦗ اެنِهِيَاެࢪ بَذِاެكَࢪهِ ⦘\n≭︰Dev User ↬ ⦗ @Yll9ll ⦘\n≭︰Dev id ↬ ⦗ 6723988021 ⦘')
-
-@client.on(events.CallbackQuery(data=b'قناه السورس'))
-async def button2(event):
-    await event.edit('@VEEVVW')
+# إضافة المعالج (handler) للرسائل النصية
+message_handler = MessageHandler(Filters.text & ~Filters.command, handle_message)
+dispatcher.add_handler(message_handler)
 
 # تشغيل البوت
-client.start()
-client.run_until_disconnected()
-
+updater.start_polling()
 
 
