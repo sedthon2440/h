@@ -40,9 +40,9 @@ from telethon.tl.functions.messages import (
     SendReactionRequest
 )
 
+from telethon import TelegramClient, events, Button
 
-
-
+# تعريف المتغيرات
 api_id = 'YOUR_API_ID'
 api_hash = 'YOUR_API_HASH'
 bot_token = 'YOUR_BOT_TOKEN'
@@ -50,15 +50,27 @@ bot_token = 'YOUR_BOT_TOKEN'
 # إنشاء العميل
 client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
 
-# دالة لإرسال رسالة مع الكيبورد
-async def send_with_keyboard(event):
+# دالة للرد على الرسائل مع الأزرار
+@client.on(events.NewMessage(pattern='/start'))
+async def start(event):
     buttons = [
-        [Button.text('Button 1'), Button.text('Button 2')],
-        [Button.text('Button 3')]
+        [Button.inline('Button 1', b'btn1')],
+        [Button.inline('Button 2', b'btn2')]
     ]
-    keyboard = Button.inline(buttons)
-    await event.respond('Choose an option:', buttons=keyboard)
+    await event.respond('Choose an option:', buttons=buttons)
 
-# استدعاء الدالة
-with client:
-    client.run_until_disconnected(send_with_keyboard)
+# دالة للتعامل مع الضغط على الأزرار
+@client.on(events.CallbackQuery(data=b'btn1'))
+async def button1(event):
+    await event.edit('You clicked button 1')
+
+@client.on(events.CallbackQuery(data=b'btn2'))
+async def button2(event):
+    await event.edit('You clicked button 2')
+
+# تشغيل البوت
+client.start()
+client.run_until_disconnected()
+
+
+
