@@ -44,115 +44,22 @@ from telethon.tl.functions.messages import (
 
 
 
-app_id = os.environ.get("APP_ID")
-app_hash = os.environ.get("APP_HASH")
-BOT_TOKEN = os.environ.get("BOT_TOKEN")
+api_id = 'YOUR_API_ID'
+api_hash = 'YOUR_API_HASH'
+bot_token = 'YOUR_BOT_TOKEN'
 
+# إنشاء العميل
+client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
 
+# دالة لإرسال رسالة مع الكيبورد
+async def send_with_keyboard(event):
+    buttons = [
+        [Button.text('Button 1'), Button.text('Button 2')],
+        [Button.text('Button 3')]
+    ]
+    keyboard = Button.inline(buttons)
+    await event.respond('Choose an option:', buttons=keyboard)
 
-REPLY_MESSAGE = "<b>- اهلا بك عزيزي اليك قائمه الاوامر</b>"
-
-
-
-
-REPLY_MESSAGE_BUTTONS = [
-
-          [
-
-             ("‹ غنيلي ›"),
-
-             ("‹ شعر ›")
-          ],
-
-          [
-
-             ("‹ صور ›"),
-
-             ("‹ انمي ›")
-
-          ],
-
-          [
-
-             ("‹ متحركة ›"),
-
-             ("‹ اقتباسات ›")
-
-          ],
-
-          [
-
-             ("‹ افتارات شباب ›"),
-
-             ("‹ افتار بنات ›")
-
-          ],
-
-          [
-
-             ("‹ هيدرات ›"),
-
-             ("‹ قران ›")
-
-          ],
-    
-          [
-
-            ("‹ جداريات ›"),
-
-            ("‹ لوكيت ›")
-              
-          ],
-          [
-            ("‹ افتارات سينمائية ›"),
-
-            ("‹ افتارات فنانين ›")
-              
-          ],
-          [
-            ("‹ افلام ›"),
-
-            ("‹ قيفات كوكسال ›")
-              
-          ],
-          [
-            ("‹ قيفات شباب ›"),
-
-            ("‹ قيفات بنات ›")
-              
-          ],
-          [
-            ("‹ قيفات قطط ›"),
-
-            ("‹ قيفات اطفال ›")
-              
-          ],
-          [
-            ("‹ قيفات رومانسية ›"),
-
-            ("‹ قيفات كيبوب ›")
-          ],
-          [
-             ("‹ اخفاء الكيبورد ›")
-
-          ]
-
-]
-
-
-
-
-  
-
-@app.on_message(filters.regex("^/start$") & filters.private)
-async def cpanel(_, message: Message):             
-        text = REPLY_MESSAGE
-        reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, resize_keyboard=True, selective=True)
-        await message.reply(
-              text=text,
-              reply_markup=reply_markup
-        )
-
-@app.on_message(filters.regex("‹ اخفاء الكيبورد ›") & filters.private)
-async def down(client, message):
-          m = await message.reply("<b>- تم اغلاق الكيبورد.</b>", reply_markup= ReplyKeyboardRemove(selective=True))
+# استدعاء الدالة
+with client:
+    client.run_until_disconnected(send_with_keyboard)
