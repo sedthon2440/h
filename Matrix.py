@@ -1,29 +1,44 @@
-import os
+from time import sleep
+import logging
 import asyncio
-from pyrogram import Client, filters
-from pyrogram.types import (
-    CallbackQuery,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    ReplyKeyboardMarkup,
-    ReplyKeyboardRemove,
-    InputMediaPhoto,
-    Message,
-)
-from MatrixMusic import app
-import asyncio
-import requests
-import config
-import random
 import time
-from config import START_IMG_URL
-from pyrogram import filters
-from pyrogram import Client
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
-from strings.filters import command
-from MatrixMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from MatrixMusic import app
-from random import  choice, randint
+import datetime
+import os
+import requests
+import re
+import random
+import telethon
+from telethon import events, TelegramClient, functions
+from telethon.tl import functions, types
+from telethon.tl.types import InputPeerUser
+from telethon.errors import FloodWaitError
+from telethon.errors.rpcerrorlist import (
+    UserAlreadyParticipantError,
+    UserNotMutualContactError,
+    UserPrivacyRestrictedError,
+    YouBlockedUserError,
+    UserNotParticipantError
+)
+from telethon.sessions import StringSession
+from telethon.utils import get_display_name
+from telethon.sync import TelegramClient
+from telethon.tl.functions.messages import (
+    ImportChatInviteRequest as Get,
+    GetHistoryRequest,
+    ImportChatInviteRequest,
+    GetMessagesViewsRequest
+)
+from telethon.tl.functions.channels import (
+    LeaveChannelRequest,
+    JoinChannelRequest,
+    InviteToChannelRequest,
+    GetParticipantRequest
+)
+from telethon.tl.functions.contacts import UnblockRequest
+from telethon.tl.functions.messages import (
+    SendVoteRequest,
+    SendReactionRequest
+)
 
 
 
