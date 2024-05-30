@@ -43,9 +43,9 @@ from telethon.tl.functions.messages import (
 from telethon import TelegramClient, events, Button
 
 # تعريف المتغيرات
-api_id = 'YOUR_API_ID'
-api_hash = 'YOUR_API_HASH'
-bot_token = 'YOUR_BOT_TOKEN'
+api_id = '17211426'
+api_hash = '656a097533402eb717ba82298a752177'
+bot_token = '7228727354:AAHz0jKXeppjXTP_P2UBUh-2VNY-bOchXxs'
 
 # إنشاء العميل
 client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
