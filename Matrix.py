@@ -85,7 +85,7 @@ async def handle_button(event):
 # تهيئة البوت وإضافة المعالج (handler)
 api_id = '17211426'
 api_hash = '656a097533402eb717ba82298a752177'
-bot_token = '7279617579:AAH05WmgKb6WhGJL9x2tGRy9RvqSA6eKpZ8'
+bot_token = '7279617579:AAHosXNCVlz6QIpNIIQkQBICdABZ9R_xuDU'
 client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
 
 @client.on(events.NewMessage(pattern='/start'))
