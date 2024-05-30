@@ -2,7 +2,6 @@ from time import sleep
 import logging
 import asyncio
 import time
-import app
 import datetime
 import os
 import requests
