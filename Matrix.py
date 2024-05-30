@@ -71,15 +71,15 @@ async def handle_button(event):
         await event.respond('You selected Option 2')
     elif event.text == 'Option 3':
         await event.respond('You selected Option 3')
-        elif event.text == 'Option 4':
+    elif event.text == 'Option 4':
         await event.respond('You selected Option 4')
     elif event.text == 'Option 5':
         await event.respond('You selected Option 5')
-elif event.text == 'Option 6':
+    elif event.text == 'Option 6':
         await event.respond('You selected Option 6')
-elif event.text == 'Option 7':
+    elif event.text == 'Option 7':
         await event.respond('You selected Option 7')
-elif event.text == 'Option 8':
+    elif event.text == 'Option 8':
         await event.respond('You selected Option 8')
 
 # تهيئة البوت وإضافة المعالج (handler)
