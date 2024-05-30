@@ -60,13 +60,13 @@ async def start(event):
     await event.respond('Choose an option:', buttons=buttons)
 
 # دالة للتعامل مع الضغط على الأزرار
-@client.on(events.CallbackQuery(data=b'btn1'))
+@client.on(events.CallbackQuery(data=b'المطور'))
 async def button1(event):
-    await event.edit('You clicked button 1')
+    await event.edit('≭︰Dev Name ↬ ⦗ اެنِهِيَاެࢪ بَذِاެكَࢪهِ ⦘\n≭︰Dev User ↬ ⦗ @Yll9ll ⦘\n≭︰Dev id ↬ ⦗ 6723988021 ⦘')
 
-@client.on(events.CallbackQuery(data=b'btn2'))
+@client.on(events.CallbackQuery(data=b'قناه السورس'))
 async def button2(event):
-    await event.edit('You clicked button 2')
+    await event.edit('@VEEVVW')
 
 # تشغيل البوت
 client.start()
