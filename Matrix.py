@@ -40,47 +40,44 @@ from telethon.tl.functions.messages import (
     SendReactionRequest
 )
 
-from telethon import TelegramClient, events, Button
-import asyncio
+from telethon import TelegramClient, events
+from telethon.tl.custom import Button
 
-# بيانات الدخول للبوت 
+# تعريف الأمر /start
+async def start(event):
+    # إنشاء اللوحة المفاتيح حسب ترتيبك
+    button1 = Button.text('Option 1')
+    button2 = Button.text('Option 2')
+    button3 = Button.text('Option 3')
+    keyboard = [
+        [button1, button2],
+        [button3]
+    ]
+    # إرسال اللوحة المفاتيح كرسالة
+    await event.respond('Please select an option:', buttons=keyboard)
+
+# تعريف الردود على الأزرار
+async def handle_button(event):
+    if event.text == 'Option 1':
+        await event.respond('You selected Option 1')
+    elif event.text == 'Option 2':
+        await event.respond('You selected Option 2')
+    elif event.text == 'Option 3':
+        await event.respond('You selected Option 3')
+
+# تهيئة البوت وإضافة المعالج (handler)
 api_id = '17211426'
 api_hash = '656a097533402eb717ba82298a752177'
 bot_token = '7279617579:AAH05WmgKb6WhGJL9x2tGRy9RvqSA6eKpZ8'
-
-# إنشاء عميل تيلثون
 client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
 
 @client.on(events.NewMessage(pattern='/start'))
-async def start_handler(event):
-    await event.respond("مرحبا! 👋")
+async def handler(event):
+    await start(event)
 
-    # إنشاء الكيبورد
-    buttons = [
-        [Button.inline("زر 1", data="button1"), Button.inline("زر 2", data="button2")],
-        [Button.inline("زر 3", data="button3")]
-    ]
+@client.on(events.NewMessage(pattern='Option 1|Option 2|Option 3'))
+async def handler(event):
+    await handle_button(event)
 
-    # إرسال الكيبورد
-    await event.respond("اختر زرًا من الكيبورد:", buttons=buttons)
-
-@client.on(events.CallbackQuery(data='button1'))
-async def button1_handler(event):
-    await event.edit("أنت ضغطت على زر 1!")
-
-@client.on(events.CallbackQuery(data='button2'))
-async def button2_handler(event):
-    await event.edit("أنت ضغطت على زر 2!")
-
-@client.on(events.CallbackQuery(data='button3'))
-async def button3_handler(event):
-    await event.edit("أنت ضغطت على زر 3!")
-
-async def main():
-    await client.start()
-    print("البوت جاهز للعمل")
-    await client.run_until_disconnected()
-
-if __name__ == '__main__':
-    asyncio.run(main())
-
+# تشغيل البوت
+client.run_until_disconnected()
