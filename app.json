@@ -17,16 +17,6 @@
         "value": "",
         "required": true
       },
-      "OWNER_ID": {
-        "description": "⦗ ايـــدي المطـــور ⦘ ↫ مطـــور بـــوت الميـــوزك",
-        "value": "",
-        "required": true
-      },
-      "STRING_SESSION": {
-        "description": "⦗ V2 ⦘ ↫ كـود جلسـة الحسـاب المساعـد لـ الميـوزك",
-        "value": "",
-        "required": true
-      },
       "HEROKU_API_KEY": {
         "description": "⦗ https://dashboard.heroku.com/account ⦘ ادخـل كود ايبـي كـي",
         "value": "",
@@ -37,12 +27,6 @@
         "value": "",
         "required": false
       },
-      "LOGGER_ID": {
-        "description": "ايـدي قروب السـجل",
-        "value": "-100",
-        "required": true
-      }
-    },
     "buildpacks": [
           {
               "url": "heroku/python"
