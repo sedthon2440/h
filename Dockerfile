@@ -1,12 +1,10 @@
-FROM nikolaik/python-nodejs:python3.10-nodejs19
+FROM python:3.8-slim-buster
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
-COPY . /app/
-WORKDIR /app/
-RUN pip3 install --no-cache-dir -U -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
-CMD bash start
+COPY . .
+
+CMD [ "python3", "Matrix.py"]
