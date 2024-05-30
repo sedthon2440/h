@@ -49,9 +49,16 @@ async def start(event):
     button1 = Button.text('Option 1')
     button2 = Button.text('Option 2')
     button3 = Button.text('Option 3')
+    button4 = Button.text('Option 4')
+    button5 = Button.text('Option 5')
+    button6 = Button.text('Option 6')
+    button7 = Button.text('Option 7')
+    button8 = Button.text('Option 8')
     keyboard = [
         [button1, button2],
-        [button3]
+        [button3, button4],
+        [button5, button6],
+        [button7, button8]
     ]
     # إرسال اللوحة المفاتيح كرسالة
     await event.respond('Please select an option:', buttons=keyboard)
@@ -64,6 +71,16 @@ async def handle_button(event):
         await event.respond('You selected Option 2')
     elif event.text == 'Option 3':
         await event.respond('You selected Option 3')
+        elif event.text == 'Option 4':
+        await event.respond('You selected Option 4')
+    elif event.text == 'Option 5':
+        await event.respond('You selected Option 5')
+elif event.text == 'Option 6':
+        await event.respond('You selected Option 6')
+elif event.text == 'Option 7':
+        await event.respond('You selected Option 7')
+elif event.text == 'Option 8':
+        await event.respond('You selected Option 8')
 
 # تهيئة البوت وإضافة المعالج (handler)
 api_id = '17211426'
@@ -75,7 +92,7 @@ client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_to
 async def handler(event):
     await start(event)
 
-@client.on(events.NewMessage(pattern='Option 1|Option 2|Option 3'))
+@client.on(events.NewMessage(pattern='Option 1|Option 2|Option 3|Option 4|Option 5|Option 6|Option 7|Option 8|Option'))
 async def handler(event):
     await handle_button(event)
 
