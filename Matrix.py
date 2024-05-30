@@ -26,6 +26,14 @@ from MatrixMusic import app
 from random import  choice, randint
 
 
+
+
+app_id = os.environ.get("APP_ID")
+app_hash = os.environ.get("APP_HASH")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
+
+
 REPLY_MESSAGE = "<b>- اهلا بك عزيزي اليك قائمه الاوامر</b>"
 
 
